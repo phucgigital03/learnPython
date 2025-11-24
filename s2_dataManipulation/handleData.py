@@ -74,6 +74,31 @@ df4 = pd.DataFrame({
 df_join = pd.merge(df3, df4, left_on='ID', right_on='studentID')
 print("df joined:\n", df_join)
 # 5. Sorting and filtering data
+df4 = pd.DataFrame({
+    'ID': [1,2,3,4,5],
+    'Age': [20,21,22,32,24],
+    'City': ['BR','BR','SG','JP','US']
+})
+df4_sort = df4.sort_values(by='Age', ascending=False)
+print("df sorted:\n", df4_sort)
+df4_filter = df4[df4['Age'] > 25]
+print("df filtered:\n", df4_filter)
+
+df_sort_multiple = df4.sort_values(by=['Age', 'City'], ascending=[False, True])
+print("df sorted multiple:\n", df_sort_multiple)
 
 # 6. Grouping and aggregation
+df4 = pd.DataFrame({
+    'Category': ['A','B','C','A','B','C'],
+    'Value': [10,20,30,45,50,60]
+})
+df4_group = df4.groupby('Category').sum()
+print("df grouped:\n", df4_group)
+
+def custom_agg(x):
+    return np.max(x) - np.min(x)
+
+df4_group_custom = df4.groupby('Category').agg({'Value': custom_agg})
+print("df grouped custom:\n", df4_group_custom)
+
 
